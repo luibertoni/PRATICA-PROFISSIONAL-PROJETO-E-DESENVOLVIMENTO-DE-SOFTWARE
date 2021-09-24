@@ -12,3 +12,5 @@ Dois aplicativos farão a comunicação de refeições da semana de um refeitór
 2.1. Ler as refeições da semana.
 2.2. Notificar ao restaurante a refeição escolhida para o dia.
 2.3. Notificar convidados.
+
+Figma:https://www.figma.com/file/o0GmfpwKFo8yzWc9LjoSGT/Restaurante?node-id=0%3A1
