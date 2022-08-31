@@ -1,0 +1,57 @@
+Premissas
+	Vagas registradas em banco de dados.
+	Taxas registradas em banco
+
+To do
+Carro
+	- placa
+	- marca
+	- modelo
+	- cor
+
+Controle de quantidade de vagas
+Vaga
+	- ID_vaga
+	- Andar
+	- Rua
+	- Número
+	- Tipo de vaga
+        - Estado
+
+Registro
+	- ID_registro
+	- vaga (ID_vaga)
+	- carro (placa)
+	
+	+ Registrar entrada
+		+ Registra uso de vaga
+		
+	- dia_entrada
+	- hora_entrada
+			
+	+ Registrar saída
+		+ Registra disponibilidade de vaga
+
+	- dia_saida
+	- hora_saida
+
+	+ Verificar vagas disponíveis
+		
+	+ Fazer cálculo
+			Se saída - entrada > 1 hora
+				Resto = (saída - entrada) % 60min
+				Horas = truncate((saída - entrada) / 60min)
+				Se Resto < tolerância
+					Uso + (Horas - 1 hora) * Valor hora
+				Se não
+					Uso + Horas * Valor hora
+			Se não
+				Uso
+	- Valor Uso
+	- Adicional hora
+
+Taxa	
+	- Valor uso (Sem tolerância)
+	- Adicional por hora (Com tolerância)
+	- Tolerância_tempo
+
