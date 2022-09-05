@@ -55,14 +55,13 @@ Taxa
 	- Adicional por hora (Com tolerância)
 	- Tolerância_tempo
 
-BD Postgres:
-Endpoint:estacionamento.cixu7ygulhv1.us-east-1.rds.amazonaws.com
-Port:5432
-User:postgres
-Senha:postgres
-
 Ambiente dev
 Virtual box
 Debian + Netbeans
 User:debian
 Senha:debian
+
+Postgres DB
+Host:localhost
+User:postgres
+Pass:postgres
