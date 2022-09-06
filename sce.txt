@@ -1,16 +1,16 @@
 Premissas
-	Vagas registradas em banco de dados.
-	Taxas registradas em banco
+	Vagas registradas em banco de dados. (Desenvolvido no BD)
+	Taxas registradas em banco           (Desenvolvido no BD)  
 
 To do
-Carro
+Carro (Desenvolvido no BD)
 	- placa
 	- marca
 	- modelo
 	- cor
 
 Controle de quantidade de vagas
-Vaga
+Vaga (Desenvolvido no BD)
 	- ID_vaga
 	- Andar
 	- Rua
@@ -18,26 +18,26 @@ Vaga
 	- Tipo de vaga
         - Estado
 
-Registro
+Registro (Desenvolvido no BD)
 	- ID_registro
 	- vaga (ID_vaga)
 	- carro (placa)
 	
-	+ Registrar entrada
-		+ Registra uso de vaga
+	+ Registrar entrada (Desenvolvido no BD)
+		+ Registra uso de vaga (Desenvolvido no BD)
 		
 	- dia_entrada
 	- hora_entrada
 			
-	+ Registrar saída
-		+ Registra disponibilidade de vaga
+	+ Registrar saída (Desenvolvido no BD)
+		+ Registra disponibilidade de vaga (Desenvolvido no BD)
 
 	- dia_saida
 	- hora_saida
 
 	+ Verificar vagas disponíveis
 		
-	+ Fazer cálculo
+	+ Fazer cálculo (Desenvolvido no BD)
 			Se saída - entrada > 1 hora
 				Resto = (saída - entrada) % 60min
 				Horas = truncate((saída - entrada) / 60min)
@@ -50,7 +50,7 @@ Registro
 	- Valor Uso
 	- Adicional hora
 
-Taxa	
+Taxa (Desenvolvido no BD)	
 	- Valor uso (Sem tolerância)
 	- Adicional por hora (Com tolerância)
 	- Tolerância_tempo
