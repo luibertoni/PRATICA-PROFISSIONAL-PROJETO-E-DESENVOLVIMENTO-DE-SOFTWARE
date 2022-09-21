@@ -1,0 +1,17 @@
+-- Table: public.carros
+
+-- DROP TABLE IF EXISTS public.carros;
+
+CREATE TABLE IF NOT EXISTS public.carros
+(
+    placa character varying(7) COLLATE pg_catalog."default" NOT NULL,
+    marca character varying(50) COLLATE pg_catalog."default",
+    modelo character varying(50) COLLATE pg_catalog."default",
+    cor character varying(30) COLLATE pg_catalog."default",
+    CONSTRAINT carros_pkey PRIMARY KEY (placa)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.carros
+    OWNER to postgres;

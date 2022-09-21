@@ -1,0 +1,67 @@
+-- Table: public.registro
+
+-- DROP TABLE IF EXISTS public.registro;
+
+CREATE TABLE IF NOT EXISTS public.registro
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id_vaga integer NOT NULL,
+    placa character varying(7) COLLATE pg_catalog."default" NOT NULL,
+    dia_entrada date NOT NULL,
+    hora_entrada time without time zone NOT NULL,
+    dia_saida date,
+    hora_saida time without time zone,
+    valor_uso numeric,
+    hora_adicional numeric,
+    total numeric,
+    CONSTRAINT registro_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_carro FOREIGN KEY (placa)
+        REFERENCES public.carros (placa) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_vaga FOREIGN KEY (id_vaga)
+        REFERENCES public.vaga (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.registro
+    OWNER to postgres;
+-- Index: fki_fk_carro
+
+-- DROP INDEX IF EXISTS public.fki_fk_carro;
+
+CREATE INDEX IF NOT EXISTS fki_fk_carro
+    ON public.registro USING btree
+    (placa COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: fki_fk_vaga
+
+-- DROP INDEX IF EXISTS public.fki_fk_vaga;
+
+CREATE INDEX IF NOT EXISTS fki_fk_vaga
+    ON public.registro USING btree
+    (id_vaga ASC NULLS LAST)
+    TABLESPACE pg_default;
+
+-- Trigger: au_registro_saida
+
+-- DROP TRIGGER IF EXISTS au_registro_saida ON public.registro;
+
+CREATE TRIGGER au_registro_saida
+    BEFORE UPDATE 
+    ON public.registro
+    FOR EACH ROW
+    EXECUTE FUNCTION public.regsaida();
+
+-- Trigger: create
+
+-- DROP TRIGGER IF EXISTS "create" ON public.registro;
+
+CREATE TRIGGER "create"
+    BEFORE INSERT
+    ON public.registro
+    FOR EACH ROW
+    EXECUTE FUNCTION public.regsaida();

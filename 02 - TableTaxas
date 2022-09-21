@@ -1,0 +1,15 @@
+-- Table: public.taxas
+
+-- DROP TABLE IF EXISTS public.taxas;
+
+CREATE TABLE IF NOT EXISTS public.taxas
+(
+    valor_uso money NOT NULL,
+    adicional_hora money NOT NULL,
+    tolerancia integer NOT NULL
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.taxas
+    OWNER to postgres;

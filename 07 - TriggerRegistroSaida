@@ -1,0 +1,9 @@
+-- Trigger: au_registro_saida
+
+-- DROP TRIGGER IF EXISTS au_registro_saida ON public.registro;
+
+CREATE TRIGGER au_registro_saida
+    BEFORE UPDATE 
+    ON public.registro
+    FOR EACH ROW
+    EXECUTE FUNCTION public.regsaida();

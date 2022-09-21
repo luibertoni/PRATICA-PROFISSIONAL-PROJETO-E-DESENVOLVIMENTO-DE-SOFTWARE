@@ -1,0 +1,9 @@
+-- Trigger: create
+
+-- DROP TRIGGER IF EXISTS "create" ON public.registro;
+
+CREATE TRIGGER "create"
+    BEFORE INSERT
+    ON public.registro
+    FOR EACH ROW
+    EXECUTE FUNCTION public.regsaida();

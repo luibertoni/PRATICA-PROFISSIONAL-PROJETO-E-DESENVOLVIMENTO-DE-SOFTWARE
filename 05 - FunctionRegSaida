@@ -1,0 +1,48 @@
+-- FUNCTION: public.regsaida()
+
+-- DROP FUNCTION IF EXISTS public.regsaida();
+
+CREATE OR REPLACE FUNCTION public.regsaida()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+	DECLARE resto integer := 0;
+	DECLARE horas integer := 0;
+	BEGIN	
+		
+		IF NOT NEW.hora_saida ISNULL THEN
+			resto := (SELECT EXTRACT(EPOCH FROM (NEW.hora_saida) - (NEW.hora_entrada)));
+			horas := resto / 3600;
+			resto := resto % 60;
+			IF resto > (SELECT tolerancia from taxas) THEN
+				NEW.total := NEW.valor_uso + NEW.hora_adicional * horas;	
+			ELSE
+				IF horas = 0 THEN horas := 1; END IF;
+				NEW.total := NEW.valor_uso + (NEW.hora_adicional * (horas - 1));
+			END IF;			
+			--Libera uso de vaga
+			UPDATE vaga
+			   SET estado = false
+			 WHERE vaga.id = NEW.id_vaga;
+		ELSE 
+			-- Registra vaga em uso
+			UPDATE vaga
+			   SET estado = true
+			 WHERE vaga.id = NEW.id_vaga;
+			 
+			 NEW.valor_uso := (SELECT valor_uso from taxas);
+			 NEW.hora_adicional := (SELECT adicional_hora from taxas);
+			 NEW.dia_entrada := current_date;
+			 NEW.hora_entrada := current_time;
+			 
+		END IF;
+		
+		RETURN NEW;
+		
+	END;
+$BODY$;
+
+ALTER FUNCTION public.regsaida()
+    OWNER TO postgres;
